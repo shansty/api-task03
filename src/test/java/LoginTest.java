@@ -85,7 +85,7 @@ public class LoginTest {
         page.route("https://demoqa.com/BookStore/v1/Book?ISBN=*", route -> {
             APIResponse newResponse = route.fetch();
             Gson newGson = new Gson();
-            JsonObject json = newGson.fromJson(newResponse.text(), JsonObject.class).getAsJsonObject();
+            JsonObject json = newGson.fromJson(newResponse.text(), JsonObject.class);
             json.remove("pages");
             json.addProperty("pages", quantityOfPageApi);
             route.fulfill(new Route.FulfillOptions().setBody(String.valueOf(json)));
