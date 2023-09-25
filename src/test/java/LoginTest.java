@@ -94,7 +94,8 @@ public class LoginTest {
         String quantityOfPageUi = page.locator("//div[@id = 'pages-wrapper']//label[@id = 'userName-value']").textContent();
         Assertions.assertEquals(quantityOfPageApi, quantityOfPageUi);
 
-        APIResponse responseNew = playwright.request().newContext().get("https://demoqa.com/Account/v1/User/" + userID, RequestOptions.create().setHeader("Authorization", "Bearer " + token));
+        APIResponse responseNew = playwright.request().newContext().get("https://demoqa.com/Account/v1/User/" + userID,
+                RequestOptions.create().setHeader("Authorization", "Bearer " + token));
         String responseNewText = responseNew.text();
         Assertions.assertEquals("shansty", gson.fromJson(responseNewText, UserId.class).getUsername());
         Assertions.assertEquals(new ArrayList<>(), gson.fromJson(responseNewText, UserId.class).getBooks());
