@@ -97,7 +97,7 @@ public class LoginTest {
         APIResponse responseNew = playwright.request().newContext().get("https://demoqa.com/Account/v1/User/" + userID,
                 RequestOptions.create().setHeader("Authorization", "Bearer " + token));
         String responseNewText = responseNew.text();
-        Assertions.assertEquals("shansty", gson.fromJson(responseNewText, UserId.class).getUsername());
+        Assertions.assertEquals(userName, gson.fromJson(responseNewText, UserId.class).getUsername());
         Assertions.assertEquals(new ArrayList<>(), gson.fromJson(responseNewText, UserId.class).getBooks());
     }
 }
