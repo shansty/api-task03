@@ -1,23 +1,16 @@
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.internal.bind.util.ISO8601Utils;
 import com.microsoft.playwright.*;
-import com.microsoft.playwright.assertions.PlaywrightAssertions;
 import com.microsoft.playwright.options.Cookie;
-import com.microsoft.playwright.options.LoadState;
 import com.microsoft.playwright.options.RequestOptions;
 import org.example.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class LoginTest {
@@ -53,13 +46,13 @@ public class LoginTest {
         page.waitForTimeout(4000);
         List<Cookie> cookies = context.cookies();
         Cookies cookie = new Cookies();
-        String userId = cookie.getCookieByName("userID", cookies);
-        Assertions.assertNotNull(userId);
-        String token = cookie.getCookieByName("token", cookies);
+        userID = cookie.getCookieByName("userID", cookies);
+        Assertions.assertNotNull(userID);
+        token = cookie.getCookieByName("token", cookies);
         Assertions.assertNotNull(token);
-        String userName = cookie.getCookieByName("userName", cookies);
+        userName = cookie.getCookieByName("userName", cookies);
         Assertions.assertNotNull(userName);
-        String expires = cookie.getCookieByName("expires", cookies);
+        expires = cookie.getCookieByName("expires", cookies);
         Assertions.assertNotNull(expires);
 
         page.route("**/*.{png,jpg,jpeg}", route -> route.abort());
@@ -90,7 +83,7 @@ public class LoginTest {
                 nth(Randomizer.randomNumberInteger(0,8)).click();
         assertThat(page.locator("//div[@id = 'pages-wrapper']//label[@id = 'userName-value']")).hasText(quantityOfPageApi);
 
-        APIResponse responseNew = playwright.request().newContext().get("https://demoqa.com/Account/v1/User/" + userId,
+        APIResponse responseNew = playwright.request().newContext().get("https://demoqa.com/Account/v1/User/" + userID,
                 RequestOptions.create().setHeader("Authorization", "Bearer " + token));
         String responseNewText = responseNew.text();
         Assertions.assertEquals(Reader.readPropertyUserName(), gson.fromJson(responseNewText, UserId.class).getUsername());

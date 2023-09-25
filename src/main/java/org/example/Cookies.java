@@ -1,7 +1,5 @@
 package org.example;
-
 import com.microsoft.playwright.options.Cookie;
-
 import java.util.List;
 
 public class Cookies {
