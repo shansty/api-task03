@@ -88,15 +88,14 @@ public class LoginTest {
             JsonObject json = newGson.fromJson(newResponse.text(), JsonObject.class);
             json.remove("pages");
             json.addProperty("pages", quantityOfPageApi);
-            route.fulfill(new Route.FulfillOptions().setBody(String.valueOf(json)));
+            route.fulfill(new Route.FulfillOptions().setBody(json.toString()));
         });
         page.locator("//a[text() = 'Git Pocket Guide']").click();
         String quantityOfPageUi = page.locator("//div[@id = 'pages-wrapper']//label[@id = 'userName-value']").textContent();
         Assertions.assertEquals(quantityOfPageApi, quantityOfPageUi);
 
         APIRequest modifiedRequest = playwright.request();
-        APIRequestContext requestContext = modifiedRequest.newContext();
-        APIResponse responseNew = requestContext.get("https://demoqa.com/Account/v1/User/" + userID, RequestOptions.create().setHeader("Authorization", "Bearer " + token));
+        APIResponse responseNew = modifiedRequest.newContext().get("https://demoqa.com/Account/v1/User/" + userID, RequestOptions.create().setHeader("Authorization", "Bearer " + token));
         String responseNewText = responseNew.text();
         Assertions.assertEquals("shansty", gson.fromJson(responseNewText, UserId.class).getUsername());
         Assertions.assertEquals(new ArrayList<>(), gson.fromJson(responseNewText, UserId.class).getBooks());
