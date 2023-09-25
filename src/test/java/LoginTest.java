@@ -39,7 +39,7 @@ public class LoginTest {
     }
 
     @Test
-    public void loginFormTest() throws IOException, InterruptedException {
+    public void loginFormTest() throws IOException {
         page.getByPlaceholder("UserName").fill(Reader.readPropertyUserName());
         page.getByPlaceholder("Password").fill(Reader.readPropertyPassword());
         page.locator("//button[@id='login']").click();
