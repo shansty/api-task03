@@ -1,4 +1,4 @@
-package org.example;
+package by.itechartgroup.anastasiya.shirochina.utils;
 import java.io.IOException;
 
 public class Reader {

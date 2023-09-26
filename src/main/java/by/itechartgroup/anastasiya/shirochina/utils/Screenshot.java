@@ -1,4 +1,4 @@
-package org.example;
+package by.itechartgroup.anastasiya.shirochina.utils;
 import com.microsoft.playwright.Page;
 import java.nio.file.Paths;
 

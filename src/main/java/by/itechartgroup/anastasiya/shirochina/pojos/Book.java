@@ -1,4 +1,4 @@
-package org.example;
+package by.itechartgroup.anastasiya.shirochina.pojos;
 
 public class Book {
     private String isbn;

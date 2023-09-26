@@ -1,4 +1,4 @@
-package org.example;
+package by.itechartgroup.anastasiya.shirochina.pojos;
 import java.util.ArrayList;
 
 public class UserId {

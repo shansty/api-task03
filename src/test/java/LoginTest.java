@@ -1,16 +1,24 @@
+import by.itechartgroup.anastasiya.shirochina.pojos.Book;
+import by.itechartgroup.anastasiya.shirochina.pojos.Root;
+import by.itechartgroup.anastasiya.shirochina.pojos.UserId;
+import by.itechartgroup.anastasiya.shirochina.utils.Cookies;
+import by.itechartgroup.anastasiya.shirochina.utils.Randomizer;
+import by.itechartgroup.anastasiya.shirochina.utils.Reader;
+import by.itechartgroup.anastasiya.shirochina.utils.Screenshot;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.microsoft.playwright.*;
 import com.microsoft.playwright.options.Cookie;
 import com.microsoft.playwright.options.RequestOptions;
-import org.example.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class LoginTest {
@@ -43,16 +51,15 @@ public class LoginTest {
         page.getByPlaceholder("UserName").fill(Reader.readPropertyUserName());
         page.getByPlaceholder("Password").fill(Reader.readPropertyPassword());
         page.locator("//button[@id='login']").click();
-        page.waitForTimeout(4000);
+        page.waitForURL("**/profile");
         List<Cookie> cookies = context.cookies();
-        Cookies cookie = new Cookies();
-        userID = cookie.getCookieByName("userID", cookies);
+        userID = Cookies.getCookieByName("userID", cookies);
         Assertions.assertNotNull(userID);
-        token = cookie.getCookieByName("token", cookies);
+        token = Cookies.getCookieByName("token", cookies);
         Assertions.assertNotNull(token);
-        userName = cookie.getCookieByName("userName", cookies);
+        userName = Cookies.getCookieByName("userName", cookies);
         Assertions.assertNotNull(userName);
-        expires = cookie.getCookieByName("expires", cookies);
+        expires = Cookies.getCookieByName("expires", cookies);
         Assertions.assertNotNull(expires);
 
         page.route("**/*.{png,jpg,jpeg}", route -> route.abort());
@@ -69,8 +76,7 @@ public class LoginTest {
         assertThat(page.locator("//div[@role='rowgroup' and @class='rt-tr-group']//img[contains(@src, '.jpg')]"))
                 .hasCount(quantityOfBooksApi);
 
-        String quantityOfPageApi = Randomizer.randomNumberString(1000, 1002);
-        System.out.println(quantityOfPageApi);
+        String quantityOfPageApi = String.valueOf(Randomizer.randomNumber(1000, 1002));
         page.route("https://demoqa.com/BookStore/v1/Book?ISBN=*", route -> {
             APIResponse newResponse = route.fetch();
             Gson newGson = new Gson();
@@ -79,8 +85,8 @@ public class LoginTest {
             json.addProperty("pages", quantityOfPageApi);
             route.fulfill(new Route.FulfillOptions().setBody(json.toString()));
         });
-        page.locator("//div[@role='rowgroup' and @class='rt-tr-group']//div[@class='action-buttons']").
-                nth(Randomizer.randomNumberInteger(0,8)).click();
+        List<Locator> listOfBooks =  page.locator("//div[@role='rowgroup' and @class='rt-tr-group']//div[@class='action-buttons']").all();
+        listOfBooks.get(Randomizer.randomNumber(0, listOfBooks.size())).click();
         assertThat(page.locator("//div[@id = 'pages-wrapper']//label[@id = 'userName-value']")).hasText(quantityOfPageApi);
 
         APIResponse responseNew = playwright.request().newContext().get("https://demoqa.com/Account/v1/User/" + userID,
