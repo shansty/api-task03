@@ -21,6 +21,7 @@ public class BookStore {
     private String pictureRegex = "**/*.{png,jpg,jpeg}";
     private String screenshotPath = "screenshots/screenshot.png";
     private String url = "https://demoqa.com/BookStore/v1/Books";
+    public int expectedStatusCode = 200;
     public BookStore(Page page) {
         this.page = page;
     }

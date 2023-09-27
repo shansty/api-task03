@@ -24,7 +24,7 @@ public class LoginTest extends BaseTest{
         Assertions.assertNotNull(profile.getCookieExpires());
         bookStore = new BookStore(page);
         bookStore.abortAllPicture().takeScreenshot();
-        Assertions.assertEquals(200, bookStore.getResponseStatusCode());
+        Assertions.assertEquals(bookStore.expectedStatusCode, bookStore.getResponseStatusCode());
         bookStore.serializationJsonToRoot();
         Assertions.assertEquals(bookStore.getQuantityOfBooksApi(), bookStore.getQuantityOfBooksUi());
         book = new Book(page);
