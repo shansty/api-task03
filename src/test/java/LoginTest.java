@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
+import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
+
 public class LoginTest extends BaseTest{
     Login login;
     Profile profile;

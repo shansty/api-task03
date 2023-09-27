@@ -12,7 +12,7 @@ import java.util.List;
 public class Book {
     private Page page;
     private APIResponse newResponse;
-    private static String quantityOfPageApi;
+    private  String quantityOfPageApi;
     private Gson newGson;
     private JsonObject json;
     private String bookUrlRegex = "https://demoqa.com/BookStore/v1/Book?ISBN=*";
