@@ -1,6 +1,6 @@
 package by.itechartgroup.anastasiya.shirochina.api;
 
-import by.itechartgroup.anastasiya.shirochina.pages.Profile;
+import by.itechartgroup.anastasiya.shirochina.pages.ProfilePage;
 import by.itechartgroup.anastasiya.shirochina.pojos.UserId;
 import com.google.gson.Gson;
 import com.microsoft.playwright.APIResponse;
@@ -13,9 +13,9 @@ public class ApiLogin {
     private APIResponse responseNew;
     private String responseNewText;
     private Playwright playwright;
-    private Profile profile;
+    private ProfilePage profile;
 
-    public ApiLogin(Playwright playwright, Profile profile) {
+    public ApiLogin(Playwright playwright, ProfilePage profile) {
         this.playwright = playwright;
         this.profile = profile;
     }

@@ -6,30 +6,30 @@ import com.microsoft.playwright.Page;
 
 import java.io.IOException;
 
-public class Login extends BasePage{
+public class LoginPage extends BasePage{
     private Locator userNameInput;
     private Locator passwordInput;
     private Locator submitButton;
 
-    public Login(Page page) {
+    public LoginPage(Page page) {
         super(page);
         this.userNameInput = page.getByPlaceholder("UserName");
         this.passwordInput = page.getByPlaceholder("Password");
         this.submitButton = page.locator("//button[@id='login']");
     }
-    public Login navigate() {
+    public LoginPage navigate() {
         page.navigate("https://demoqa.com/login");
         return this;
     }
-    public Login inputUserName() throws IOException {
+    public LoginPage inputUserName() throws IOException {
         userNameInput.fill(Reader.readPropertyUserName());
         return this;
     }
-    public Login inputUserPassword() throws IOException {
+    public LoginPage inputUserPassword() throws IOException {
         passwordInput.fill(Reader.readPropertyPassword());
         return this;
     }
-    public Login submitButton() {
+    public LoginPage submitButton() {
         submitButton.click();
         return this;
     }

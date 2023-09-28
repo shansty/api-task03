@@ -17,18 +17,12 @@ import java.util.List;
 import static com.microsoft.playwright.assertions.PlaywrightAssertions.assertThat;
 
 public class LoginTest extends BaseTest{
-    Login login;
-    Profile profile;
-    BookStore bookStore;
-    BookPage book;
-    ApiLogin apiLogin;
-
     @Test
     public void loginFormTest() throws IOException {
-        login = new Login(page);
+        login = new LoginPage(page);
         login.navigate().inputUserName().inputUserPassword().submitButton();
 
-        profile = new Profile(page);
+        profile = new ProfilePage(page);
         profile.waitForProfileUrlAndCookie();
         Assertions.assertNotNull(profile.getCookieUserID());
         Assertions.assertNotNull(profile.getCookieToken());

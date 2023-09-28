@@ -6,18 +6,18 @@ import com.microsoft.playwright.options.Cookie;
 
 import java.util.List;
 
-public class Profile extends BasePage {
+public class ProfilePage extends BasePage {
     private List<Cookie> cookies;
     private String cookieNameUserId = "userID";
     private String cookieNameToken = "token";
     private String cookieNameUserName = "userName";
     private String cookieNameExpires = "expires";
 
-    public Profile(Page page) {
+    public ProfilePage(Page page) {
         super(page);
     }
 
-    public Profile waitForProfileUrlAndCookie() {
+    public ProfilePage waitForProfileUrlAndCookie() {
         page.waitForURL("**/profile");
         cookies = page.context().cookies();
         return this;
