@@ -37,16 +37,16 @@ public class LoginTest extends BaseTest{
         Route.abortAllPicture(page,  "**/*.{png,jpg,jpeg}");
 
         bookStore = new BookStore(page);
-        Response getBooksResponse = page.waitForResponse(bookStore.booksUrl, () -> bookStore.bookStoreButton.click());
+        Response getBooksResponse = page.waitForResponse(bookStore.booksUrl, () -> bookStore.getBookStoreButton().click());
         List<Book> books = ApiBookStore.getBooksArray(getBooksResponse, "books");
         Screenshot.getScreenshot(page, "screenshots/screenshot.png");
         Assertions.assertEquals(200, getBooksResponse.status());
         //не PW, так как используется метод page.waitForResponse(), возвращающий Response, а не APIResponse
-        assertThat(bookStore.booksArrayLocator).hasCount(books.size());
+        assertThat(bookStore.getBooksArrayLocator()).hasCount(books.size());
         book = new BookPage(page);
         String quantityOfPageApi = String.valueOf(Randomizer.randomNumber(100, 1000));
         Route.modifiedResponseWithDifferentBody(page, "pages", quantityOfPageApi, "https://demoqa.com/BookStore/v1/Book?ISBN=*");
-        bookStore.clickBookByNumber(Randomizer.randomNumber(0, bookStore.booksArrayLocator.all().size()-1));
+        bookStore.clickBookByNumber(Randomizer.randomNumber(0, bookStore.getBooksArrayLocator().all().size()-1));
         assertThat(book.getQuantityOfPageUi()).containsText((quantityOfPageApi));
 
         apiLogin = new ApiLogin(playwright, profile);

@@ -3,8 +3,8 @@ import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
 public class BookStore extends BasePage {
-    public Locator booksArrayLocator;
-    public Locator bookStoreButton;
+    private Locator booksArrayLocator;
+    private Locator bookStoreButton;
     public String booksUrl = "https://demoqa.com/BookStore/v1/Books";
     public BookStore(Page page) {
         super(page);
@@ -15,5 +15,13 @@ public class BookStore extends BasePage {
     public BookStore clickBookByNumber(int number) {
         booksArrayLocator.all().get(number).click();
         return this;
+    }
+
+    public Locator getBooksArrayLocator() {
+        return booksArrayLocator;
+    }
+
+    public Locator getBookStoreButton() {
+        return bookStoreButton;
     }
 }
