@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ApiBookStore {
 
-    public static List<Book> getBooksArray(Response response, String key) {
+    public static List<Book> getBooksArray(Response response) {
         String jsonResponse = response.text();
         Gson gson = new Gson();
         Root booksResponse = gson.fromJson(jsonResponse, Root.class);

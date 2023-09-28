@@ -32,7 +32,7 @@ public class LoginTest extends BaseTest{
 
         bookStore = new BookStore(page);
         Response getBooksResponse = page.waitForResponse(bookStore.booksUrl, () -> bookStore.getBookStoreButton().click());
-        List<Book> books = ApiBookStore.getBooksArray(getBooksResponse, "books");
+        List<Book> books = ApiBookStore.getBooksArray(getBooksResponse);
         Screenshot.getScreenshot(page, "screenshots/screenshot.png");
         Assertions.assertEquals(200, getBooksResponse.status());
         //не PW, так как используется метод page.waitForResponse(), возвращающий Response, а не APIResponse
