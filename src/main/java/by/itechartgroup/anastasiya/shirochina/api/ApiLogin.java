@@ -1,5 +1,6 @@
-package by.itechartgroup.anastasiya.shirochina.pages;
+package by.itechartgroup.anastasiya.shirochina.api;
 
+import by.itechartgroup.anastasiya.shirochina.pages.Profile;
 import by.itechartgroup.anastasiya.shirochina.pojos.UserId;
 import com.google.gson.Gson;
 import com.microsoft.playwright.APIResponse;
@@ -13,20 +14,15 @@ public class ApiLogin {
     private String responseNewText;
     private Playwright playwright;
     private Profile profile;
-    private String url = "https://demoqa.com/Account/v1/User/";
-    private String headerKey = "Authorization";
-    private String headerValue = "Bearer ";
-    public ArrayList arrayList = new ArrayList<>();
 
     public ApiLogin(Playwright playwright, Profile profile) {
         this.playwright = playwright;
         this.profile = profile;
     }
-
-    public ApiLogin sendRequest() {
-        responseNew = playwright.request().newContext().get(url + profile.getCookieUserID(),
-                RequestOptions.create().setHeader(headerKey, headerValue + profile.getCookieToken()));
-        return this;
+    public APIResponse sendRequest() {
+        responseNew = playwright.request().newContext().get("https://demoqa.com/Account/v1/User/" + profile.getCookieUserID(),
+                RequestOptions.create().setHeader("Authorization", "Bearer " + profile.getCookieToken()));
+        return responseNew;
     }
     public ApiLogin getTextFromResponse(){
         responseNewText = responseNew.text();

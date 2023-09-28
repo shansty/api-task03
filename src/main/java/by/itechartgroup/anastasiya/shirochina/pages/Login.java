@@ -1,34 +1,36 @@
 package by.itechartgroup.anastasiya.shirochina.pages;
 
 import by.itechartgroup.anastasiya.shirochina.utils.Reader;
+import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
 import java.io.IOException;
 
-public class Login {
-    private String inputUserNameLocator = "UserName";
-    private String inputPasswordLocator = "Password";
-    private String submitButtonLocator = "//button[@id='login']";
-    private String url = "https://demoqa.com/login";
-    private Page page;
+public class Login extends BasePage{
+    private Locator userNameInput;
+    private Locator passwordInput;
+    private Locator submitButton;
 
     public Login(Page page) {
-        this.page = page;
+        super(page);
+        this.userNameInput = page.getByPlaceholder("UserName");
+        this.passwordInput = page.getByPlaceholder("Password");
+        this.submitButton = page.locator("//button[@id='login']");
     }
     public Login navigate() {
-        page.navigate(url);
+        page.navigate("https://demoqa.com/login");
         return this;
     }
     public Login inputUserName() throws IOException {
-        page.getByPlaceholder(inputUserNameLocator).fill(Reader.readPropertyUserName());
+        userNameInput.fill(Reader.readPropertyUserName());
         return this;
     }
     public Login inputUserPassword() throws IOException {
-        page.getByPlaceholder(inputPasswordLocator).fill(Reader.readPropertyPassword());
+        passwordInput.fill(Reader.readPropertyPassword());
         return this;
     }
     public Login submitButton() {
-        page.locator(submitButtonLocator).click();
+        submitButton.click();
         return this;
     }
 }
