@@ -1,6 +1,6 @@
 import by.itechartgroup.anastasiya.shirochina.api.ApiLogin;
 import by.itechartgroup.anastasiya.shirochina.pages.BookPage;
-import by.itechartgroup.anastasiya.shirochina.pages.BookStore;
+import by.itechartgroup.anastasiya.shirochina.pages.BookStorePage;
 import by.itechartgroup.anastasiya.shirochina.pages.LoginPage;
 import by.itechartgroup.anastasiya.shirochina.pages.ProfilePage;
 import com.microsoft.playwright.*;
@@ -16,7 +16,7 @@ public class BaseTest {
     BrowserContext context;
     LoginPage login;
     ProfilePage profile;
-    BookStore bookStore;
+    BookStorePage bookStore;
     BookPage book;
     ApiLogin apiLogin;
 

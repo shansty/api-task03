@@ -30,7 +30,7 @@ public class LoginTest extends BaseTest{
         Assertions.assertNotNull(profile.getCookieExpires());
         Route.abortAllPicture(page,  "**/*.{png,jpg,jpeg}");
 
-        bookStore = new BookStore(page);
+        bookStore = new BookStorePage(page);
         Response getBooksResponse = page.waitForResponse(bookStore.booksUrl, () -> bookStore.getBookStoreButton().click());
         List<Book> books = ApiBookStore.getBooksArray(getBooksResponse);
         Screenshot.getScreenshot(page, "screenshots/screenshot.png");
